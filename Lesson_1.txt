@@ -1,0 +1,4 @@
+Hệ số gốc m> 1 thì cho y++ để tối ưu đường thẳng hoặc cong bất kỳ
+m <1 x++
+Hệ số góc được tính như sau: y =ax+b
+m = y đạo hàm
