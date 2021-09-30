@@ -58,9 +58,9 @@ def cohenLine(xA, yA, xB, yB):
     if xB < xmin: cB = 1
     m = (yB - yA) / (xB - xA)
     print("Trước hàm white")
-    while cA | cB > 0:
+    while cA or cB > 0:
         # TH1: Điểm A và B nằm cùng phía
-        if cA & cB != 0: 
+        if cA and cB != 0: 
             print(cA, cB)
             print("Trước hàm white")
             exit(0)
@@ -119,7 +119,7 @@ def cohenLine(xA, yA, xB, yB):
     # Mặc dù đã cố gắng nhưng mà vẫn có vấn đề với thuật toán
     plt.plot(x_values, y_values, color= "red")
     # plt.axline((xdA, ydA), (xdB, ydB), color= "red")
-    plt.show()
+    plt.draw()
 
 # Khâu xử lý sự kiện click không cần thay đổi
 def on_click(event):

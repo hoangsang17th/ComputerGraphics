@@ -62,26 +62,39 @@ def binaryLine(xA, yA, xB, yB):
     y_values = [yA, yB]
     # 1. cA = cB = 0. Đoạn thẳng là chính nó vì nó nằm bên trong hình xén
     # Vẽ đoạn thẳng và kết thúc bài toán.
-    if (cB | cA ) == 0:
+    if cB == cA == 0:
         # Vẽ luôn khỏi cần xử lý, màu xanh chứng tỏ đã được xén
         plt.plot(x_values, y_values, color= "red")
-        plt.show()
+        plt.draw()
     # 2. cA = cB và cA != 0. Đoạn thẳng nằm bên ngoài biên của sổ. 
     # Kết thúc bài toán
-    if (cA & cB ) != 0:
+    if ( cA & cB ) != 0:
+        print("TH2")
         # Vẽ luôn khỏi cần xử lý, màu đỏ chứng tỏ đã được xén nhưng không được vẻ
         plt.plot(x_values, y_values, color= "blue")
-        plt.show()
+        plt.draw()
 
-    # 3. cA và cB không thuộc 2 trường hợp trên
-    # 
+    # 3. Điểm B nằm trong biên
+    # Hoán đổi vị trí và áp dụng TH 4
     m = (yB - yA) / (xB - xA)
-    if cA !=0 & cB == 0: 
+    if cA != 0 and cB == 0: 
         # Hoán đổi A B
+        swap = 0
         swap = cA
         cA = cB
         cB = swap
-    if cA ==0 & cB != 0:
+        swapXA = 0
+        swapYA = 0
+        swapXA = xA
+        swapYA = yA
+        xA = xB
+        yA = yB
+        xB = swapXA
+        yB = swapYA
+
+    # TH 4: Điểm A nằm trong biên
+    if cA ==0 and cB != 0:
+        print("Hello")
         xdA = xA
         ydA = yA
         xdB = xB
@@ -96,12 +109,12 @@ def binaryLine(xA, yA, xB, yB):
             else:
                 ydB = yM
                 xdB = xM
+        # Xong vong lặp thì vẽ và hiển thị
+        plt.plot([xA, xdA], [yA, ydA], color= "red")
+        plt.draw()
     
-    # Xong vong lặp thì vẽ và hiển thị
-    plt.plot([xA, xdA], [yA, ydA], color= "blue")
-    plt.show()
-
-    if (cA !=0 & cB != 0) & (cA & cB) == 0:
+    # Th 5: Th còn lại
+    if (cA != 0 != cB) and (cA & cB) == 0:
         xdA = xA
         ydA = yA
         xdB = xB
@@ -109,23 +122,28 @@ def binaryLine(xA, yA, xB, yB):
         xM = (xdA + xdB) / 2
         yM = (ydA + ydB) / 2
         cM = codeX(xM, yM)
-        while cM !=0 & (abs(xdA - xdB) +abs(ydA - ydB)) >2:
+        print("CM: ", cM)
+        while cM !=0 and (abs(xdA - xdB) +abs(ydA - ydB)) >2:
             cP = codeX(xdA, ydA)
             if (cP & cM) != 0:
-                xdA = xM
-                ydA = yM
-            else:
                 xdB = xM
                 ydB = yM
+               
+            else:
+                xdA = xM
+                ydA = yM
             
             xM = (xdA + xdB) / 2
             yM = (ydA + ydB) / 2
+            cM = codeX(xM, yM)
         
         if cM == 0:
+            binaryLine(xdA, ydA, xM, yM)
+            binaryLine(xM, yM, xdB, ydB)
             # Xong vong lặp thì vẽ và hiển thị
-            plt.plot([xdA, xM], [ydA, yM], color= "blue")
-            plt.plot([xM, xdB], [yM, ydA], color= "blue")
-            plt.show()
+            # plt.plot([xdA, xM], [ydA, yM], color= "blue")
+            # plt.plot([xM, xdB], [yM, ydA], color= "blue")
+            # plt.draw()
 
 
 
